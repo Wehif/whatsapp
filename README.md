@@ -50,4 +50,4 @@ In this tutorial, we will create a full `WhatsApp` clone using Angular and `Ioni
 | [Begin Tutorial >](manuals/views/step1.md) |
 |----------------------:|
 [}]: #
-[}]: #
+[}]: ## whatsapp
