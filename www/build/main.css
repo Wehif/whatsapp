@@ -24577,6 +24577,30 @@ sub {
   float: left;
 }
 
+.events-page-content .event-picture {
+  border-radius: 50%;
+  width: 50px;
+  float: left;
+}
+
+.events-page-content .event-info {
+  float: left;
+  margin: 10px 0 0 20px;
+}
+
+.events-page-content img {
+  margin-bottom: -33px;
+  width: 100%;
+}
+
+.events-page-content ion-icon {
+  float: right;
+  font-size: 30px;
+  opacity: 0.5;
+  border-left: black solid 1px;
+  padding-left: 5px;
+}
+
 .login-page-content .instructions {
   text-align: center;
   font-size: medium;

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar color="whatsapp">
+    <ion-title>
+      Events
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only class="add-event-button">
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+      <button ion-button icon-only class="options-button">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="events-page-content">
+  <ion-list class="events">
+    <ion-card *ngFor="let event of events | async" >
+      <ion-item>
+        <button ion-item class="profile">
+          <ion-avatar item-left>
+            <img class="profile-picture">
+          </ion-avatar>
+          <h2 class="profile-name">Test</h2>
+        </button>
+      </ion-item>
+
+      <button ion-item class="event">
+        <ion-card-content>
+          <img class="event-picture" [src]="event.picture">
+          <div class="event-info">
+            <h2 class="event-name">{{event.name}}</h2>
+
+            <span class="event-description">
+              <p class="event-description-content">{{event.description}}</p>
+              <span class="event-date-start">{{ event.dateStart }}  </span>
+            </span>
+          </div>
+        </ion-card-content>
+      </button>
+    </ion-card>
+  </ion-list>
+</ion-content>
