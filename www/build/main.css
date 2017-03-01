@@ -24601,6 +24601,20 @@ sub {
   padding-left: 5px;
 }
 
+.new-event .event-picture {
+  border-radius: 50%;
+  width: 50px;
+  float: left;
+}
+
+.new-event .event-name {
+  margin-left: 20px;
+  margin-top: 25px;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  float: left;
+}
+
 .login-page-content .instructions {
   text-align: center;
   font-size: medium;

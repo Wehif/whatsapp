@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar color="whatsapp">
+    <ion-title>New Event</ion-title>
+
+    <ion-buttons end>
+      <button ion-button class="done-button" (click)="addEvent(event)">Done</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="new-event">
+  <div class="event-picture">
+    <img *ngIf="picture" [src]="picture">
+    <ion-icon name="create" (click)="selectEventPicture()"></ion-icon>
+  </div>
+
+  <ion-item class="event-name">
+    <ion-label stacked>Name</ion-label>
+    <ion-input [(ngModel)]="event.name" placeholder="Event name"></ion-input>
+    <ion-label stacked>Description</ion-label>
+    <ion-input [(ngModel)]="event.description" placeholder="About event"></ion-input>
+  </ion-item>
+</ion-content>

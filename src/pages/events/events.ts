@@ -4,6 +4,7 @@ import { Event } from 'api/models';
 import { NavController, PopoverController, ModalController, AlertController } from 'ionic-angular';
 import { MeteorObservable } from 'meteor-rxjs';
 import { Observable } from 'rxjs';
+import { NewEventComponent } from './new-event';
 
 @Component({
   templateUrl: 'events.html'
@@ -18,6 +19,11 @@ export class EventsPage implements OnInit {
     private modalCtrl: ModalController,
     private alertCtrl: AlertController) {
     this.creatorId = Meteor.userId();
+  }
+
+  addEvent(): void {
+    const modal = this.modalCtrl.create(NewEventComponent);
+    modal.present();
   }
 
   ngOnInit() {

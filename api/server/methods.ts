@@ -106,11 +106,8 @@ Meteor.methods({
     check(event.creatorId, nonEmptyString);
 
     if (event.creatorId === this.userId) {
-      throw new Meteor.Error('illegal-receiver',
-        'Receiver must be different than the current logged in user');
+       Events.insert(event);
     }
-
-    Events.insert(event);
   },
   updateEvent(event: Event): void {
     if (!this.userId) throw new Meteor.Error('unauthorized',
@@ -119,9 +116,7 @@ Meteor.methods({
     check(event.creatorId, nonEmptyString);
 
     if (event.creatorId === this.userId) {
-      throw new Meteor.Error('illegal-receiver',
-        'Receiver must be different than the current logged in user');
+      Events.update({_id : event._id},{ name : event.name, description: event.description, pictureId: event.pictureId});
     }
-    Events.update({_id : event._id},{ name : event.name, description: event.description, pictureId: event.pictureId});
   }
 });
