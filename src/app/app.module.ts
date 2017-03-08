@@ -14,6 +14,7 @@ import { ShowPictureComponent } from '../pages/messages/show-picture';
 import { ProfilePage } from '../pages/profile/profile';
 import { EventsPage } from '../pages/events/events';
 import { NewEventComponent } from '../pages/events/new-event';
+import { EventPage } from '../pages/events/event';
 import { VerificationPage } from '../pages/verification/verification';
 import { PhoneService } from '../services/phone';
 import { PictureService } from '../services/picture';
@@ -34,7 +35,8 @@ import { MyApp } from './app.component';
     NewLocationMessageComponent,
     ShowPictureComponent,
     EventsPage,
-    NewEventComponent
+    NewEventComponent,
+    EventPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -58,7 +60,8 @@ import { MyApp } from './app.component';
     NewLocationMessageComponent,
     ShowPictureComponent,
     EventsPage,
-    NewEventComponent
+    NewEventComponent,
+    EventPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

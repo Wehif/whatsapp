@@ -1,8 +1,8 @@
 .events-page-content {
   .event-picture {
-    border-radius: 50%;
-    width: 50px;
-    float: left;
+    max-width: 300px;
+    display: block;
+    margin: auto;
   }
 
   .event-info {

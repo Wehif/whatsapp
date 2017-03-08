@@ -3,6 +3,7 @@ import { Events } from 'api/collections';
 import { Event } from 'api/models';
 import { NavController, PopoverController, ModalController, AlertController } from 'ionic-angular';
 import { MeteorObservable } from 'meteor-rxjs';
+import { EventPage } from './event';
 import { Observable } from 'rxjs';
 import { NewEventComponent } from './new-event';
 
@@ -37,6 +38,11 @@ export class EventsPage implements OnInit {
   findEvents(): Observable<Event[]> {
     // Find events and transform them
     return Events.find();
+  }
+
+  showEvent(id : string): void {
+    console.log(id);
+    this.navCtrl.push(EventPage, { eventKey : id});
   }
 
   handleError(e: Error): void {
