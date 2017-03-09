@@ -78,7 +78,4 @@ export class NewEventComponent implements OnInit {
     alert.present();
   }
 
-  getPic(pictureId): string {
-    return Pictures.getPictureUrl(pictureId);
-  }
 }

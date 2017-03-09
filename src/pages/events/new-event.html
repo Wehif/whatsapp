@@ -10,7 +10,7 @@
 
 <ion-content class="new-event">
   <div class="event-picture">
-    <img *ngIf="picture" [src]="picture">
+    <img *ngIf="event.picture" [src]="event.picture">
     <ion-icon name="create" (click)="selectEventPicture()"></ion-icon>
   </div>
 

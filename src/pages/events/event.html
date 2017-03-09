@@ -4,8 +4,8 @@
       Event
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only class="options-button">
-        <ion-icon name="more"></ion-icon>
+      <button ion-button icon-only class="settings-button" *ngIf="profileId == event.creatorId" (click)="editEvent()">
+        <ion-icon name="settings"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -23,6 +23,7 @@
             <span class="event-description">
               <p class="event-description-content">{{event.description}}</p>
               <span class="event-date-start">{{ event.dateStart }}  </span>
+              <span class="event-creator">{{ event.creatorId }}  </span>
             </span>
           </div>
         </ion-card-content>

@@ -14,6 +14,7 @@ import { ShowPictureComponent } from '../pages/messages/show-picture';
 import { ProfilePage } from '../pages/profile/profile';
 import { EventsPage } from '../pages/events/events';
 import { NewEventComponent } from '../pages/events/new-event';
+import { EditEventComponent } from '../pages/events/edit-event';
 import { EventPage } from '../pages/events/event';
 import { VerificationPage } from '../pages/verification/verification';
 import { PhoneService } from '../services/phone';
@@ -36,6 +37,7 @@ import { MyApp } from './app.component';
     ShowPictureComponent,
     EventsPage,
     NewEventComponent,
+    EditEventComponent,
     EventPage
   ],
   imports: [
@@ -61,6 +63,7 @@ import { MyApp } from './app.component';
     ShowPictureComponent,
     EventsPage,
     NewEventComponent,
+    EditEventComponent,
     EventPage
   ],
   providers: [

@@ -41,7 +41,6 @@ export class EventsPage implements OnInit {
   }
 
   showEvent(id : string): void {
-    console.log(id);
     this.navCtrl.push(EventPage, { eventKey : id});
   }
 

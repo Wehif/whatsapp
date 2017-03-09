@@ -24615,6 +24615,33 @@ sub {
   padding-left: 5px;
 }
 
+.edit-event .event-name, .edit-event .event-description {
+  margin-left: 20px;
+  margin-top: 25px;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  float: left;
+}
+
+.edit-event .event-picture {
+  max-width: 300px;
+  display: block;
+  margin: auto;
+}
+
+.edit-event .event-picture img {
+  margin-bottom: -33px;
+  width: 100%;
+}
+
+.edit-event .event-picture ion-icon {
+  float: right;
+  font-size: 30px;
+  opacity: 0.5;
+  border-left: black solid 1px;
+  padding-left: 5px;
+}
+
 .new-event .event-name, .new-event .event-description {
   margin-left: 20px;
   margin-top: 25px;

@@ -114,11 +114,10 @@ Meteor.methods({
     if (!this.userId) throw new Meteor.Error('unauthorized',
         'User must be logged-in to update event');
 
-    check(event.creatorId, nonEmptyString);
     check(event.name, nonEmptyString);
 
     if (event.creatorId === this.userId) {
-      Events.update({_id : event._id},{ name : event.name, description: event.description, pictureId: event.pictureId});
+      Events.update({_id : event._id},{ $set: {name : event.name, description: event.description, pictureId: event.pictureId, picture: event.picture}});
     }
   }
 });
