@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Profile } from 'api/models';
 import { AlertController, NavController } from 'ionic-angular';
 import { MeteorObservable } from 'meteor-rxjs';
-import { ChatsPage } from '../chats/chats';
+import { TabsPage } from '../tabs/tabs';
 import { PictureService } from '../../services/picture';
 import { Pictures } from 'api/collections';
 
@@ -53,7 +53,7 @@ export class ProfilePage implements OnInit {
   updateProfile(): void {
     MeteorObservable.call('updateProfile', this.profile).subscribe({
       next: () => {
-        this.navCtrl.push(ChatsPage);
+        this.navCtrl.push(TabsPage);
       },
       error: (e: Error) => {
         this.handleError(e);
