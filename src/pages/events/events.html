@@ -4,7 +4,7 @@
        <ion-icon name="menu" ></ion-icon>
     </button>
     <ion-title>
-      Events
+      Мероприятия
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only class="add-event-button" (click)="addEvent()">
@@ -28,7 +28,12 @@
 
             <span class="event-description">
               <p class="event-description-content">{{event.description}}</p>
-              <span class="event-date-start">{{ event.dateStart }}  </span>
+            </span>
+            <span class="event-date-start">
+               <p>Время начала: </p> <ion-item><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateStart" ></ion-datetime></ion-item>
+            </span>
+            <span class="event-date-end">
+               <p>Время окончания: </p> <ion-item><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateEnd" ></ion-datetime></ion-item>
             </span>
           </div>
         </ion-card-content>

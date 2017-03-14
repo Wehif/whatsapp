@@ -1,9 +1,9 @@
 <ion-header>
   <ion-navbar color="whatsapp">
-    <ion-title>Edit Event</ion-title>
+    <ion-title>Редактирование мероприятия</ion-title>
 
     <ion-buttons end>
-      <button ion-button class="done-button" (click)="editEvent()">Done</button>
+      <button ion-button class="done-button" (click)="editEvent()">Готово</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -15,11 +15,19 @@
   </div>
 
   <ion-item class="event-name">
-    <ion-label stacked>Name</ion-label>
-    <ion-input [(ngModel)]="event.name" placeholder="Event name"></ion-input>
+    <ion-label stacked>Название</ion-label>
+    <ion-input [(ngModel)]="event.name" placeholder="Название вашего мероприятия"></ion-input>
   </ion-item>
   <ion-item class="event-description">
-    <ion-label stacked>Description</ion-label>
-    <ion-input [(ngModel)]="event.description" placeholder="About event"></ion-input>
+    <ion-label stacked>Описание</ion-label>
+    <ion-input [(ngModel)]="event.description" placeholder="О мероприятии"></ion-input>
+  </ion-item>
+  <ion-item class="event-date-start">
+    <ion-label stacked>Дата начала</ion-label>
+    <ion-datetime displayFormat="MMM DD, YYYY HH:mm" minuteValues="0,15,30,45" [min]="minDate" max="2020-10-31" [(ngModel)]="event.dateStart" placeholder="Дата начала"></ion-datetime>
+  </ion-item>
+  <ion-item class="event-date-end">
+    <ion-label stacked>Дата окончания</ion-label>
+    <ion-datetime displayFormat="MMM DD, YYYY HH:mm" minuteValues="0,15,30,45" [min]="minDate																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			" max="2020-10-31" [(ngModel)]="event.dateEnd" placeholder="Дата окончания"></ion-datetime>
   </ion-item>
 </ion-content>

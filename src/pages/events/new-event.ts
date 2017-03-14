@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Pictures } from 'api/collections';
 import { User, Event } from 'api/models';
 import { AlertController, ViewController} from 'ionic-angular';
@@ -15,6 +15,7 @@ export class NewEventComponent implements OnInit {
   users: Observable<User[]>;
   event: Event;
   picture: string;
+  minDate: string = new Date().toISOString();
 
   constructor(
     private alertCtrl: AlertController,
@@ -28,7 +29,11 @@ export class NewEventComponent implements OnInit {
     this.event = {
       name: '',
       description: '',
-      picture:''}
+      picture:''
+    }
+   
+   this.event.dateStart = new Date(Date.now()).toISOString();
+   this.event.dateEnd = (new Date(Date.now() + 3*3600000)).toISOString();
   }
 
   selectEventPicture(): void {
@@ -54,16 +59,56 @@ export class NewEventComponent implements OnInit {
     this.event.creatorId = Meteor.userId();
     this.event.name = event.name;
     this.event.description = event.description;
-    MeteorObservable.call('addEvent', this.event).subscribe({
-      next: () => {
-        this.viewCtrl.dismiss();
-      },
-      error: (e: Error) => {
-        this.viewCtrl.dismiss().then(() => {
-          this.handleError(e);
+    this.event.dateStart = event.dateStart;
+    this.event.dateEnd = event.dateEnd;
+    if (this.event.dateStart && this.event.dateEnd) {
+      if (this.event.dateEnd > this.event.dateStart) {
+        MeteorObservable.call('addEvent', this.event).subscribe({
+          next: () => {
+            this.viewCtrl.dismiss();
+          },
+          error: (e: Error) => {
+            this.viewCtrl.dismiss().then(() => {
+              this.handleError(e);
+            });
+          }
         });
       }
-    });
+      else {
+        const alert = this.alertCtrl.create({
+               title: 'Oops!',
+               message: 'Вы указали неправильную дату окончания!',
+               buttons: ['OK']
+             });
+        alert.present();
+      }
+    } 
+    else { if (!this.event.dateStart && !this.event.dateEnd) {
+             const alert = this.alertCtrl.create({
+               title: 'Oops!',
+               message: 'Вы не указали дату начала и дату окончания!',
+               buttons: ['OK']
+             });
+            alert.present();
+         }
+      if (!this.event.dateStart && this.event.dateEnd) {
+             const alert = this.alertCtrl.create({
+               title: 'Oops!',
+               message: 'Вы не указали дату начала!',
+               buttons: ['OK']
+             });
+             alert.present();
+      }
+      if (this.event.dateStart && !this.event.dateEnd) {
+             const alert = this.alertCtrl.create({
+               title: 'Oops!',
+               message: 'Вы не указали дату окончания!',
+               buttons: ['OK']
+             });
+             alert.present();
+      }
+ 
+    }
   }
 
   handleError(e: Error): void {

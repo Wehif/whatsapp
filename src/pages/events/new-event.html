@@ -1,25 +1,33 @@
 <ion-header>
   <ion-navbar color="whatsapp">
-    <ion-title>New Event</ion-title>
+    <ion-title>Создание нового мероприятия</ion-title>
 
     <ion-buttons end>
-      <button ion-button class="done-button" (click)="addEvent(event)">Done</button>
+      <button ion-button class="done-button" (click)="addEvent(event)">Готово</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content class="new-event">
+<ion-content class="new-event" *ngIf="!loading">
   <div class="event-picture">
     <img *ngIf="event.picture" [src]="event.picture">
     <ion-icon name="create" (click)="selectEventPicture()"></ion-icon>
   </div>
 
   <ion-item class="event-name">
-    <ion-label stacked>Name</ion-label>
-    <ion-input [(ngModel)]="event.name" placeholder="Event name"></ion-input>
+    <ion-label stacked>Название вашего мероприятия</ion-label>
+    <ion-input [(ngModel)]="event.name" placeholder="Введите сюда название мероприятия"></ion-input>
   </ion-item>
   <ion-item class="event-description">
-    <ion-label stacked>Description</ion-label>
-    <ion-input [(ngModel)]="event.description" placeholder="About event"></ion-input>
+    <ion-label stacked>Описание</ion-label>
+    <ion-input [(ngModel)]="event.description" placeholder="О мероприятии"></ion-input>
+  </ion-item>
+  <ion-item class="event-date-start">
+    <ion-label stacked>Дата начала</ion-label>
+    <ion-datetime *ngIf="event.dateStart" displayFormat="MMM DD, YYYY HH:mm" minuteValues="0,15,30,45" [min]="event.dateStart" max="2020-10-31" [(ngModel)]="event.dateStart" placeholder="Дата начала"></ion-datetime>
+  </ion-item>
+  <ion-item class="event-date-end">
+    <ion-label stacked>Дата окончания</ion-label>
+    <ion-datetime *ngIf="event.dateStart" displayFormat="MMM DD, YYYY HH:mm" minuteValues="0,15,30,45" [min]="event.dateStart" max="2020-10-31" [(ngModel)]="event.dateEnd" placeholder="Дата окончания"></ion-datetime>
   </ion-item>
 </ion-content>

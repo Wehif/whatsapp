@@ -16,7 +16,7 @@ export class EventPage implements OnInit {
   searchPattern: BehaviorSubject<any>;
   creatorId: string;
   users: Observable<User[]>;
-  event;
+  event: Event;
   picture: string;
   key: string;
   profileId: string;
@@ -33,10 +33,7 @@ export class EventPage implements OnInit {
 
   ngOnInit(): void {
     this.profileId = Meteor.userId();
-    console.log(this.profileId);
     this.key = this.navParams.get('eventKey');
-    console.log("Hey it's from eventPage with id:");
-    console.log(this.key);
     this.event = Events.findOne({_id: this.key});
   }
 

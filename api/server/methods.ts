@@ -117,7 +117,7 @@ Meteor.methods({
     check(event.name, nonEmptyString);
 
     if (event.creatorId === this.userId) {
-      Events.update({_id : event._id},{ $set: {name : event.name, description: event.description, pictureId: event.pictureId, picture: event.picture}});
+      Events.update({_id : event._id},{ $set: {name : event.name, description: event.description, pictureId: event.pictureId, picture: event.picture, dateStart: event.dateStart, dateEnd: event.dateEnd}});
     }
   }
 });

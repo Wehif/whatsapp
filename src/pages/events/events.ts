@@ -37,7 +37,8 @@ export class EventsPage implements OnInit {
 
   findEvents(): Observable<Event[]> {
     // Find events and transform them
-    return Events.find();
+    let todayDate = new Date().toISOString();
+    return Events.find({ dateEnd: { $gte: todayDate}}, {sort: { dateStart: 1}});
   }
 
   showEvent(id : string): void {

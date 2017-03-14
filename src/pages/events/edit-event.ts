@@ -17,6 +17,7 @@ export class EditEventComponent implements OnInit {
   event;
   picture: string;
   key: string;
+  minDate: string;
 
   constructor(
     private alertCtrl: AlertController,
@@ -30,9 +31,9 @@ export class EditEventComponent implements OnInit {
 
   ngOnInit(): void {
     this.key = this.navParams.get('eventKey');
-    console.log("Hey it's from eventPage with id:");
-    console.log(this.key);
-    this.event = Events.findOne({_id: this.key});  
+    this.event = Events.findOne({_id: this.key});
+
+    this.minDate = new Date(Date.now()).toISOString();
     
     this.picture = this.event.picture;
   }
@@ -57,14 +58,53 @@ export class EditEventComponent implements OnInit {
   }
 
   editEvent(): void {
-    MeteorObservable.call('updateEvent', this.event).subscribe({
-      next: () => {
-        this.navCtrl.pop();
-      },
-      error: (e: Error) => {
-        this.handleError(e);
+    
+    if (this.event.dateStart && this.event.dateEnd) {
+      if (this.event.dateEnd > this.event.dateStart) {
+        MeteorObservable.call('updateEvent', this.event).subscribe({
+          next: () => {
+            this.navCtrl.pop();
+          },
+          error: (e: Error) => {
+            this.handleError(e);
+          }
+        });
       }
-    });
+      else {
+        const alert = this.alertCtrl.create({
+               title: 'Oops!',
+               message: 'Вы указали неправильную дату окончания!',
+               buttons: ['OK']
+             });
+        alert.present();
+      }
+    } 
+    else { if (!this.event.dateStart && !this.event.dateEnd) {
+             const alert = this.alertCtrl.create({
+               title: 'Oops!',
+               message: 'Вы не указали дату начала и дату окончания!',
+               buttons: ['OK']
+             });
+            alert.present();
+         }
+      if (!this.event.dateStart && this.event.dateEnd) {
+             const alert = this.alertCtrl.create({
+               title: 'Oops!',
+               message: 'Вы не указали дату начала!',
+               buttons: ['OK']
+             });
+             alert.present();
+      }
+      if (this.event.dateStart && !this.event.dateEnd) {
+             const alert = this.alertCtrl.create({
+               title: 'Oops!',
+               message: 'Вы не указали дату окончания!',
+               buttons: ['OK']
+             });
+             alert.present();
+      }
+ 
+    }
   }
 
   handleError(e: Error): void {

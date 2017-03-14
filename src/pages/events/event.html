@@ -15,9 +15,7 @@
 </ion-header>
 
 <ion-content class="events-page-content">
-  <ion-list class="events">
-    <ion-card >
-      <button ion-item class="event">
+    <ion-card ion-item class="event">
         <ion-card-content>
           <img class="event-picture" [src]="event.picture">
           <div class="event-info">
@@ -25,12 +23,16 @@
 
             <span class="event-description">
               <p class="event-description-content">{{event.description}}</p>
-              <span class="event-date-start">{{ event.dateStart }}  </span>
-              <span class="event-creator">{{ event.creatorId }}  </span>
+              <span class="event-creator">{{event.creatorId}}  </span>
+            </span>
+         
+            <span class="event-date-start">
+               <p>Время начала: </p> <ion-item><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateStart" ></ion-datetime></ion-item>
+            </span>
+            <span class="event-date-end">
+               <p>Время окончания: </p> <ion-item><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateEnd" ></ion-datetime></ion-item>
             </span>
           </div>
-        </ion-card-content>
-      </button>
+      </ion-card-content>
     </ion-card>
-  </ion-list>
 </ion-content>

@@ -62,8 +62,8 @@ export interface Event {
   complete?: boolean;
   name?: string;
   description?: string;
-  dateStart?: Date;
-  dateEnd?: Date;
+  dateStart?: string;
+  dateEnd?: string;
   creatorId?: string;
   picture?: string;
   pictureId?: string;
