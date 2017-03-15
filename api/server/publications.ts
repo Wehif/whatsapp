@@ -4,6 +4,7 @@ import { Messages } from './collections/messages';
 import { Chats } from './collections/chats';
 import { Pictures } from './collections/pictures';
 import { Events } from './collections/events';
+import { Comments } from './collections/comments';
 
 Meteor.publishComposite('users', function(
   pattern: string
@@ -101,6 +102,13 @@ Meteor.publish('events', function() {
     return;
   }
       return Events.collection.find();
+});
+
+Meteor.publish('eventComments', function(eventId: string) {
+  if (!this.userId) {
+    return;
+  }
+      return Comments.collection.find({docId: eventId});
 });
 
 Meteor.publish('user', function () {

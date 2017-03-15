@@ -1,7 +1,8 @@
 import { Chats } from './collections/chats';
 import { Messages } from './collections/messages';
 import { Events } from './collections/events';
-import { MessageType, Profile, Event } from './models';
+import { Comments } from './collections/comments';
+import { MessageType, Profile, Event, Comment } from './models';
 import { check, Match } from 'meteor/check';
 
 const nonEmptyString = Match.Where((str) => {
@@ -118,6 +119,32 @@ Meteor.methods({
 
     if (event.creatorId === this.userId) {
       Events.update({_id : event._id},{ $set: {name : event.name, description: event.description, pictureId: event.pictureId, picture: event.picture, dateStart: event.dateStart, dateEnd: event.dateEnd}});
+    }
+  },
+  addComment(comment: Comment): void {
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized',
+        'User must be logged-in to create a new comment');
+    }
+
+    check(comment.creatorId, nonEmptyString);
+    check(comment.text, nonEmptyString);
+
+    if (comment.creatorId === this.userId) {
+       Comments.insert(comment);
+    }
+  },
+  deleteComment(commentId: string, commentCreatorId: string): void {
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized',
+        'User must be logged-in to delete comment');
+    }
+
+    check(commentId, nonEmptyString);
+    check(commentCreatorId, nonEmptyString);
+
+    if (commentCreatorId === this.userId) {
+       Comments.remove({_id: commentId});
     }
   }
 });

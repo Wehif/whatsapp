@@ -26,3 +26,4 @@ npm-bcrypt@0.9.2
 reywood:publish-composite
 jalik:ufs
 jalik:ufs-gridfs
+service-configuration

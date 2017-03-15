@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, Events, Tabs } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController, Tabs } from 'ionic-angular';
 
 import { TinderPage} from '../tinder/tinder';
 import { ChatsPage} from '../chats/chats';

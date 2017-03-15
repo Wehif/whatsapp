@@ -35,4 +35,30 @@
           </div>
       </ion-card-content>
     </ion-card>
+    <ion-list> 
+    <ion-item>
+        <ion-input type="text" placeholder="Текст вашего комментария" [(ngModel)]="newCommentText" ></ion-input>  
+    </ion-item>
+    <ion-item>
+        <button ion-button icon-only (click)="addNewComment()" >
+           <ion-icon name="send"  ></ion-icon>
+    </button>            
+    </ion-item>
+    
+    </ion-list>
+    <ion-list class="comments" *ngIf="!loading">
+      <ion-card *ngFor="let comment of comments | async" >
+        <ion-card-content>
+          <!--<img class="comment-picture" >-->
+          <div class="comment-info">
+            <h2 class="comment-username"> </h2>
+
+            <span class="comment-description">
+              <p class="comment-text">{{comment.text}}</p>
+            </span>
+          </div>
+        </ion-card-content>
+    </ion-card>
+  </ion-list>
+
 </ion-content>

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Events, Pictures } from 'api/collections';
+import { Events } from 'api/collections';
 import { User, Event } from 'api/models';
 import { AlertController, ViewController, NavParams, NavController } from 'ionic-angular';
 import { MeteorObservable } from 'meteor-rxjs';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { PictureService } from '../../services/picture';
-import { EventPage } from "./event";
 
 @Component({
   selector: 'edit-event',

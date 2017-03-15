@@ -69,3 +69,11 @@ export interface Event {
   pictureId?: string;
   location?: string;
 }
+
+export interface Comment {
+  _id?: string;
+  creatorId?: string;
+  text?: string;
+  createdAt?: string;
+  docId?: string;
+}

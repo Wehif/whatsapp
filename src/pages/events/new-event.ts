@@ -1,5 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { Pictures } from 'api/collections';
+import { Component, OnInit } from '@angular/core';
 import { User, Event } from 'api/models';
 import { AlertController, ViewController} from 'ionic-angular';
 import { MeteorObservable } from 'meteor-rxjs';
