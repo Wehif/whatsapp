@@ -24577,18 +24577,30 @@ sub {
   float: left;
 }
 
-.new-event .event-picture {
+.comments .comment-avatar {
   border-radius: 50%;
   width: 50px;
   float: left;
 }
 
-.new-event .event-name {
+.comments .comment-info {
   margin-left: 20px;
   margin-top: 25px;
   -webkit-transform: translate(0, -50%);
   transform: translate(0, -50%);
   float: left;
+}
+
+.event .event-date-start, .event .event-date-end {
+  float: left;
+}
+
+.event .event-date-start .item-date-start, .event .event-date-start .item-date-end, .event .event-date-end .item-date-start, .event .event-date-end .item-date-end {
+  padding-left: 0px;
+}
+
+.event .event-date-start .item-date-start .datetime-md, .event .event-date-start .item-date-end .datetime-md, .event .event-date-end .item-date-start .datetime-md, .event .event-date-end .item-date-end .datetime-md {
+  padding-left: 0px;
 }
 
 .events-page-content .event-picture {

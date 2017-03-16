@@ -6,6 +6,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { PictureService } from '../../services/picture';
 import { EditEventComponent } from './edit-event';
 import { MeteorObservable } from 'meteor-rxjs';
+import { _ } from 'meteor/underscore';
 
 @Component({
   selector: 'event',
@@ -22,6 +23,7 @@ export class EventPage implements OnInit {
   comments;
   newCommentText: string;
   newComment: Comment;
+  subscribed: boolean;
 
   constructor(
     private alertCtrl: AlertController,
@@ -55,11 +57,32 @@ export class EventPage implements OnInit {
       this.event = Events.findOne({_id: this.key});
     //});
 
+    this.ifSubcribe();
+
     MeteorObservable.subscribe('eventComments', this.key).subscribe(() => {
       MeteorObservable.autorun().subscribe(() => {
-        this.comments = Comments.find({docId: this.key});
-        console.log(this.comments);
+        this.comments = this.findComments();
       });
+    });
+  }
+
+  findComments(): Observable<Comment[]>{
+  // Find comments and transform them
+    return Comments.find({docId: this.key}).map(comments => {
+      comments.forEach(comment => {
+        comment.username = '';
+        comment.avatar = '';
+
+        const creator = Users.findOne(comment.creatorId);
+
+        if (creator) {
+          comment.username = creator.profile.name;
+          comment.avatar = Pictures.getPictureUrl(creator.profile.pictureId);
+        }
+
+      });
+
+      return comments;
     });
   }
 
@@ -114,4 +137,18 @@ export class EventPage implements OnInit {
           }
     });
   }
+  
+  subscribeUser(): void {
+     MeteorObservable.call('subscribeEvent', this.event._id).subscribe();
+     this.subscribed = true;
+  }
+
+  unsubscribeUser(): void {
+     MeteorObservable.call('unsubscribeEvent', this.event._id).subscribe();
+     this.subscribed = false;
+  }
+
+ ifSubcribe(): void {
+   this.subscribed = _.include(this.event.subscribers, this.profileId);
+ }
 }

@@ -146,5 +146,28 @@ Meteor.methods({
     if (commentCreatorId === this.userId) {
        Comments.remove({_id: commentId});
     }
+  },
+  countComments(eventId: string): number {
+    return Comments.collection.find({docId: eventId}).count();
+  },
+  subscribeEvent(eventId: string): void {
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized',
+        'User must be logged-in to subscribe');
+    }
+    
+    check(eventId, nonEmptyString);
+    
+    Events.collection.update({_id: eventId}, { $push: { subscribers: this.userId } });
+  },
+  unsubscribeEvent(eventId: string): void {
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized',
+        'User must be logged-in to subscribe');
+    }
+    
+    check(eventId, nonEmptyString);
+    
+    Events.collection.update({_id: eventId}, { $pull: { subscribers: this.userId } });
   }
 });

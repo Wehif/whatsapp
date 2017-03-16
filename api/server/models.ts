@@ -68,6 +68,7 @@ export interface Event {
   picture?: string;
   pictureId?: string;
   location?: string;
+  subscribers? : string[];
 }
 
 export interface Comment {
@@ -76,4 +77,6 @@ export interface Comment {
   text?: string;
   createdAt?: string;
   docId?: string;
+  username?: string;
+  avatar?: string;
 }

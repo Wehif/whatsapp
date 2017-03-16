@@ -1,14 +1,28 @@
-.new-event {
-  .event-picture {
+.comments {
+  .comment-avatar {
     border-radius: 50%;
     width: 50px;
     float: left;
   }
 
-  .event-name {
+  .comment-info {
     margin-left: 20px;
     margin-top: 25px;
     transform: translate(0, -50%);
     float: left;
+  }
+}
+
+.event {
+  .event-date-start, .event-date-end {
+    float: left;
+    
+    .item-date-start,.item-date-end {
+      padding-left: 0px;
+      
+      .datetime-md {
+        padding-left: 0px;
+      }
+    }
   }
 }

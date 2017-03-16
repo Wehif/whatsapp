@@ -1,4 +1,4 @@
-import { User, Message, Chat, Picture } from './models';
+import { User, Message, Chat, Picture, Comment } from './models';
 import { Users } from './collections/users';
 import { Messages } from './collections/messages';
 import { Chats } from './collections/chats';
@@ -104,11 +104,37 @@ Meteor.publish('events', function() {
       return Events.collection.find();
 });
 
-Meteor.publish('eventComments', function(eventId: string) {
+Meteor.publishComposite('eventComments', function(eventId:string): PublishCompositeConfig<Comment> {
   if (!this.userId) {
     return;
   }
-      return Comments.collection.find({docId: eventId});
+
+  return {
+    find: () => {
+      return Comments.collection.find({ docId: eventId });
+    },
+
+    children: [
+      <PublishCompositeConfig1<Comment, User>> {
+        find: (comment) => {
+          return Users.collection.find({
+            _id: comment.creatorId
+          }, {
+            fields: { profile: 1 }
+          });
+        },
+        children: [
+          <PublishCompositeConfig2<Comment, User, Picture>> {
+            find: (user, comment) => {
+              return Pictures.collection.find(user.profile.pictureId, {
+                fields: { url: 1 }
+              });
+            }
+          }
+        ]
+      }
+    ]
+  };
 });
 
 Meteor.publish('user', function () {

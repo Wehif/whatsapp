@@ -28,7 +28,8 @@ export class NewEventComponent implements OnInit {
     this.event = {
       name: '',
       description: '',
-      picture:''
+      picture:'',
+      subscribers: []
     }
    
    this.event.dateStart = new Date(Date.now()).toISOString();
@@ -62,6 +63,7 @@ export class NewEventComponent implements OnInit {
     this.event.dateEnd = event.dateEnd;
     if (this.event.dateStart && this.event.dateEnd) {
       if (this.event.dateEnd > this.event.dateStart) {
+        this.event.subscribers.push(Meteor.userId());
         MeteorObservable.call('addEvent', this.event).subscribe({
           next: () => {
             this.viewCtrl.dismiss();

@@ -30,10 +30,10 @@
               <p class="event-description-content">{{event.description}}</p>
             </span>
             <span class="event-date-start">
-               <p>Время начала: </p> <ion-item><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateStart" ></ion-datetime></ion-item>
+               <p>Время начала: </p> <ion-item class="item-date-start"><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateStart" ></ion-datetime></ion-item>
             </span>
             <span class="event-date-end">
-               <p>Время окончания: </p> <ion-item><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateEnd" ></ion-datetime></ion-item>
+               <p>Время окончания: </p> <ion-item class="item-date-end"><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateEnd" ></ion-datetime></ion-item>
             </span>
           </div>
         </ion-card-content>

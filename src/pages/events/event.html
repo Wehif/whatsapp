@@ -17,7 +17,7 @@
 <ion-content class="events-page-content">
     <ion-card ion-item class="event">
         <ion-card-content>
-          <img class="event-picture" [src]="event.picture">
+          <img class="event-picture" *ngIf="event.picture" [src]="event.picture">
           <div class="event-info">
             <h2 class="event-name">{{event.name}}</h2>
 
@@ -25,16 +25,27 @@
               <p class="event-description-content">{{event.description}}</p>
               <span class="event-creator">{{event.creatorId}}  </span>
             </span>
-         
-            <span class="event-date-start">
-               <p>Время начала: </p> <ion-item><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateStart" ></ion-datetime></ion-item>
-            </span>
-            <span class="event-date-end">
-               <p>Время окончания: </p> <ion-item><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateEnd" ></ion-datetime></ion-item>
-            </span>
+            <ion-row>
+              <ion-col>
+                <span class="event-date-start">
+                   <p>Время начала: </p> <ion-item class="item-date-start"><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateStart" ></ion-datetime></ion-item>
+                </span>
+              </ion-col>
+              <ion-col>
+                <span class="event-date-end">
+                    <p>Время окончания: </p> <ion-item class="item-date-end"><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateEnd" ></ion-datetime></ion-item>
+                </span>
+              </ion-col>
+            </ion-row>
           </div>
       </ion-card-content>
     </ion-card>
+    
+    <ion-item *ngIf="profileId !== event.creatorId">
+       <button ion-button block *ngIf="!subscribed" (click)="subscribeUser()" >Подписаться</button>
+       <button ion-button block clear *ngIf="subscribed" (click)="unsubscribeUser()" >Отписаться</button>
+    </ion-item>
+
     <ion-list> 
     <ion-item>
         <ion-input type="text" placeholder="Текст вашего комментария" [(ngModel)]="newCommentText" ></ion-input>  
@@ -49,9 +60,9 @@
     <ion-list class="comments" *ngIf="!loading">
       <ion-card *ngFor="let comment of comments | async" >
         <ion-card-content>
-          <!--<img class="comment-picture" >-->
+          <img class="comment-avatar" *ngIf="comment.avatar" [src]="comment.avatar">
           <div class="comment-info">
-            <h2 class="comment-username"> </h2>
+            <h2 class="comment-username">{{comment.username}} </h2>
 
             <span class="comment-description">
               <p class="comment-text">{{comment.text}}</p>
