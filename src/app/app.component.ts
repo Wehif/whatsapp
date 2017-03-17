@@ -6,6 +6,7 @@ import { PhoneService } from '../services/phone';
 import { Meteor } from 'meteor/meteor';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
+import { MyEventsPage } from '../pages/events/myevents';
 
 @Component({
   templateUrl: 'app.html'
@@ -39,6 +40,12 @@ export class MyApp {
     //viewCtrl.dismiss().then(() => {
       this.nav.push(ProfilePage);
     //});
+  }
+
+  goToMyEvents(): void {
+    let viewCtrl: ViewController = this.nav.getActive();
+    this.menu.close();
+    this.nav.push(MyEventsPage);
   }
 
   logout(): void {

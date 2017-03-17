@@ -104,6 +104,22 @@ Meteor.publish('events', function() {
       return Events.collection.find();
 });
 
+Meteor.publish('myEvents', function() {
+  if (!this.userId) {
+    return;
+  }
+  let todayDate = new Date().toISOString();
+      return Events.collection.find({ dateEnd: { $gte: todayDate}, subscribers: this.userId}, {sort: { dateStart: 1}});
+});
+
+Meteor.publish('myEventsPrev', function() {
+  if (!this.userId) {
+    return;
+  }
+  let todayDate = new Date().toISOString();
+      return Events.collection.find({ dateEnd: { $lt: todayDate}, subscribers: this.userId}, {sort: { dateStart: -1}});
+});
+
 Meteor.publishComposite('eventComments', function(eventId:string): PublishCompositeConfig<Comment> {
   if (!this.userId) {
     return;

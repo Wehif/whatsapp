@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-navbar color="whatsapp">
+    <button ion-button menuToggle>
+       <ion-icon name="menu" ></ion-icon>
+    </button>
+    <ion-title>
+      Мои Мероприятия
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only class="add-event-button" (click)="addEvent()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <button ion-button icon-only class="options-button">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="myE" color="secondary">
+      <ion-segment-button value="current">
+        <ion-icon name="flag"></ion-icon>
+        Текущие
+      </ion-segment-button>
+      <ion-segment-button value="previous">
+        <ion-icon name="checkmark-circle"></ion-icon>
+        Прошедшие
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="my-events-page-content">
+  <div [ngSwitch]="myE">
+  <ion-list class="events" *ngSwitchCase="'current'">
+    <ion-card *ngFor="let event of myEvents | async" >
+      <button ion-item class="event" (click)="showEvent(event._id)">
+        <ion-card-content>
+          <img class="event-picture" [src]="event.picture">
+          <div class="event-info">
+            <h2 class="event-name">{{event.name}} </h2>
+
+            <span class="event-description">
+              <p class="event-description-content">{{event.description}}</p>
+            </span>
+            <span class="event-date-start">
+               <p>Время начала: </p> <ion-item class="item-date-start"><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateStart" ></ion-datetime></ion-item>
+            </span>
+            <span class="event-date-end">
+               <p>Время окончания: </p> <ion-item class="item-date-end"><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateEnd" ></ion-datetime></ion-item>
+            </span>
+          </div>
+        </ion-card-content>
+      </button>
+    </ion-card>
+  </ion-list>
+
+  <ion-list class="events" *ngSwitchCase="'previous'">
+    <ion-card *ngFor="let eventPrev of myEventsPrev | async" >
+      <button ion-item class="event" (click)="showEvent(eventPrev._id)">
+        <ion-card-content>
+          <img class="event-picture" [src]="eventPrev.picture">
+          <div class="event-info">
+            <h2 class="event-name">{{eventPrev.name}} </h2>
+
+            <span class="event-description">
+              <p class="event-description-content">{{eventPrev.description}}</p>
+            </span>
+            <span class="event-date-start">
+               <p>Время начала: </p> <ion-item class="item-date-start"><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="eventPrev.dateStart" ></ion-datetime></ion-item>
+            </span>
+            <span class="event-date-end">
+               <p>Время окончания: </p> <ion-item class="item-date-end"><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="eventPrev.dateEnd" ></ion-datetime></ion-item>
+            </span>
+          </div>
+        </ion-card-content>
+      </button>
+    </ion-card>
+  </ion-list>
+
+  </div>
+</ion-content>

@@ -16,6 +16,7 @@ import { EventsPage } from '../pages/events/events';
 import { NewEventComponent } from '../pages/events/new-event';
 import { EditEventComponent } from '../pages/events/edit-event';
 import { EventPage } from '../pages/events/event';
+import { MyEventsPage } from '../pages/events/myevents';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ChatroomsPage } from '../pages/chatrooms/chatrooms';
 import { TinderPage } from '../pages/tinder/tinder';
@@ -44,7 +45,8 @@ import { MyApp } from './app.component';
     EventPage,
     TabsPage,
     ChatroomsPage,
-    TinderPage
+    TinderPage,
+    MyEventsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -73,7 +75,8 @@ import { MyApp } from './app.component';
     EventPage,
     TabsPage,
     ChatroomsPage,
-    TinderPage
+    TinderPage,
+    MyEventsPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
