@@ -7,6 +7,7 @@ import { PictureService } from '../../services/picture';
 import { EditEventComponent } from './edit-event';
 import { MeteorObservable } from 'meteor-rxjs';
 import { _ } from 'meteor/underscore';
+import { ShowProfilePage } from '../profile/showprofile';
 
 @Component({
   selector: 'event',
@@ -16,7 +17,7 @@ export class EventPage implements OnInit {
   searchPattern: BehaviorSubject<any>;
   creatorId: string;
   users: Observable<User[]>;
-  event: Event;
+  event;
   picture: string;
   key: string;
   profileId: string;
@@ -46,24 +47,63 @@ export class EventPage implements OnInit {
       createdAt:'',
       docId: ''
     }
-
-    //MeteorObservable.subscribe('event', this.key).subscribe(() => {
-    //  MeteorObservable.autorun().subscribe(() => {
-    //    this.event = Events.find({_id: this.key});
-    //  });
-    //});
+    this.event='';
     
-    //MeteorObservable.subscribe('event', this.key).subscribe(() => {
-      this.event = Events.findOne({_id: this.key});
+
+    MeteorObservable.subscribe('event', this.key).subscribe(() => {
+      MeteorObservable.autorun().subscribe(() => {
+        this.event = this.findEvent();
+      });
+    });
+    
+    //MeteorObservable.subscribe('event', this.key).subscribe(() => { 
+    //  this.event = Events.findOne({_id: this.key});
     //});
 
-    this.ifSubcribe();
 
     MeteorObservable.subscribe('eventComments', this.key).subscribe(() => {
       MeteorObservable.autorun().subscribe(() => {
         this.comments = this.findComments();
       });
     });
+  }
+
+  //findEvent(): Event {
+  // Find event and transform them
+  //  let currEvent = Events.find({_id: this.key}).map(events => {
+  //    events.forEach(event => {
+  //      event.creatorName = '';
+  //      event.creatorAvatar = '';
+
+  //      const creator = Users.findOne(event.creatorId);
+
+  //      if (creator) {
+  //        event.creatorName = creator.profile.name;
+  //        event.creatorAvatar = Pictures.getPictureUrl(creator.profile.pictureId);
+  //      }
+  //    });
+  //    return events;
+  //  });
+  //  console.log("лахей, сюда смотри!");
+  //  console.log(currEvent);
+  //  return currEvent[1];
+  //}
+
+  findEvent(): Event {
+  // Find event and transform them
+    let currEvent = Events.findOne({_id: this.key})
+        currEvent.creatorName = '';
+        currEvent.creatorAvatar = '';
+
+        const creator = Users.findOne(currEvent.creatorId);
+
+        if (creator) {
+          currEvent.creatorName = creator.profile.name;
+          currEvent.creatorAvatar = Pictures.getPictureUrl(creator.profile.pictureId);
+        }
+      
+    this.subscribed = _.include(currEvent.subscribers, this.profileId);
+    return currEvent;
   }
 
   findComments(): Observable<Comment[]>{
@@ -150,5 +190,9 @@ export class EventPage implements OnInit {
 
  ifSubcribe(): void {
    this.subscribed = _.include(this.event.subscribers, this.profileId);
+ }
+
+ showCreatorProfile(): void {
+    this.navCtrl.push(ShowProfilePage, { profileKey : this.event.creatorId});
  }
 }

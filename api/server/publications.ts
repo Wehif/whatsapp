@@ -1,4 +1,4 @@
-import { User, Message, Chat, Picture, Comment } from './models';
+import { User, Message, Chat, Picture, Comment, Event } from './models';
 import { Users } from './collections/users';
 import { Messages } from './collections/messages';
 import { Chats } from './collections/chats';
@@ -109,7 +109,7 @@ Meteor.publish('myEvents', function() {
     return;
   }
   let todayDate = new Date().toISOString();
-      return Events.collection.find({ dateEnd: { $gte: todayDate}, subscribers: this.userId}, {sort: { dateStart: 1}});
+      return Events.collection.find({ dateEnd: { $gte: todayDate}, subscribers: this.userId});
 });
 
 Meteor.publish('myEventsPrev', function() {
@@ -117,7 +117,7 @@ Meteor.publish('myEventsPrev', function() {
     return;
   }
   let todayDate = new Date().toISOString();
-      return Events.collection.find({ dateEnd: { $lt: todayDate}, subscribers: this.userId}, {sort: { dateStart: -1}});
+      return Events.collection.find({ dateEnd: { $lt: todayDate}, subscribers: this.userId});
 });
 
 Meteor.publishComposite('eventComments', function(eventId:string): PublishCompositeConfig<Comment> {
@@ -153,6 +153,39 @@ Meteor.publishComposite('eventComments', function(eventId:string): PublishCompos
   };
 });
 
+Meteor.publishComposite('event', function(eventId:string): PublishCompositeConfig<Event> {
+  if (!this.userId) {
+    return;
+  }
+
+  return {
+    find: () => {
+      return Events.collection.find({ _id: eventId },{limit:1});
+    },
+
+    children: [
+      <PublishCompositeConfig1<Event, User>> {
+        find: (event) => {
+          return Users.collection.find({
+            _id: event.creatorId
+          }, {
+            fields: { profile: 1 }
+          });
+        },
+        children: [
+          <PublishCompositeConfig2<Event, User, Picture>> {
+            find: (user, event) => {
+              return Pictures.collection.find(user.profile.pictureId, {
+                fields: { url: 1 }
+              });
+            }
+          }
+        ]
+      }
+    ]
+  };
+});
+
 Meteor.publish('user', function () {
   if (!this.userId) {
     return;
@@ -164,3 +197,27 @@ Meteor.publish('user', function () {
     _id: profile.pictureId
   });
 });
+
+Meteor.publishComposite('userprofile', function(profileId:string): PublishCompositeConfig<User> {
+  if (!this.userId) {
+    return;
+  }
+  return {
+    find: () => {
+      return Users.collection.find({ _id: profileId },{
+        fields: { profile: 1 }
+      });
+    },
+
+    children: [
+      <PublishCompositeConfig1<User, Picture>> {
+        find: (user) => {
+          return Pictures.collection.find(user.profile.pictureId, {
+            fields: { url: 1 }
+          });
+        }
+      }
+    ]
+  };
+});
+

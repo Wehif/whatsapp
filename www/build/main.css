@@ -24603,6 +24603,20 @@ sub {
   padding-left: 0px;
 }
 
+.event .event-creator .event-creator-avatar {
+  border-radius: 50%;
+  width: 50px;
+  float: left;
+}
+
+.event .event-creator .event-creator-name {
+  margin-left: 20px;
+  margin-top: 25px;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  float: left;
+}
+
 .events-page-content .event-picture {
   max-width: 300px;
   display: block;
@@ -24921,6 +24935,25 @@ sub {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+.profile-page-content .profile-picture {
+  max-width: 300px;
+  display: block;
+  margin: auto;
+}
+
+.profile-page-content .profile-picture img {
+  margin-bottom: -33px;
+  width: 100%;
+}
+
+.profile-page-content .profile-picture ion-icon {
+  float: right;
+  font-size: 30px;
+  opacity: 0.5;
+  border-left: black solid 1px;
+  padding-left: 5px;
 }
 
 .profile-page-content .profile-picture {

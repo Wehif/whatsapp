@@ -25,4 +25,18 @@
       }
     }
   }
+  .event-creator {
+    .event-creator-avatar {
+      border-radius: 50%;
+      width: 50px;
+      float: left;
+    }
+
+    .event-creator-name {
+      margin-left: 20px;
+      margin-top: 25px;
+      transform: translate(0, -50%);
+      float: left;
+    }
+  }
 }

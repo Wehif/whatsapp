@@ -12,6 +12,7 @@ import { MessagesOptionsComponent } from '../pages/messages/messages-options';
 import { NewLocationMessageComponent } from '../pages/messages/location-message';
 import { ShowPictureComponent } from '../pages/messages/show-picture';
 import { ProfilePage } from '../pages/profile/profile';
+import { ShowProfilePage } from '../pages/profile/showprofile';
 import { EventsPage } from '../pages/events/events';
 import { NewEventComponent } from '../pages/events/new-event';
 import { EditEventComponent } from '../pages/events/edit-event';
@@ -46,7 +47,8 @@ import { MyApp } from './app.component';
     TabsPage,
     ChatroomsPage,
     TinderPage,
-    MyEventsPage
+    MyEventsPage,
+    ShowProfilePage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -76,7 +78,8 @@ import { MyApp } from './app.component';
     TabsPage,
     ChatroomsPage,
     TinderPage,
-    MyEventsPage
+    MyEventsPage,
+    ShowProfilePage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},

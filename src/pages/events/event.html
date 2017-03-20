@@ -15,7 +15,7 @@
 </ion-header>
 
 <ion-content class="events-page-content">
-    <ion-card ion-item class="event">
+    <ion-card ion-item class="event" *ngIf="event">
         <ion-card-content>
           <img class="event-picture" *ngIf="event.picture" [src]="event.picture">
           <div class="event-info">
@@ -23,7 +23,12 @@
 
             <span class="event-description">
               <p class="event-description-content">{{event.description}}</p>
-              <span class="event-creator">{{event.creatorId}}  </span>
+              <button ion-item (click)="showCreatorProfile()">
+                <span class="event-creator">
+                 <img class="event-creator-avatar" *ngIf="event.creatorAvatar" [src]="event.creatorAvatar">
+                 <p class="event-creator-name">{{event.creatorName}}</p>
+                </span>
+              </button>
             </span>
             <ion-row>
               <ion-col>
@@ -38,13 +43,13 @@
               </ion-col>
             </ion-row>
           </div>
-      </ion-card-content>
-    </ion-card>
-    
-    <ion-item *ngIf="profileId !== event.creatorId">
+      <ion-item *ngIf="profileId !== event.creatorId">
        <button ion-button block *ngIf="!subscribed" (click)="subscribeUser()" >Подписаться</button>
        <button ion-button block clear *ngIf="subscribed" (click)="unsubscribeUser()" >Отписаться</button>
     </ion-item>
+      </ion-card-content>
+    </ion-card>
+    
 
     <ion-list> 
     <ion-item>

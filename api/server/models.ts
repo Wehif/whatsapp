@@ -69,6 +69,8 @@ export interface Event {
   pictureId?: string;
   location?: string;
   subscribers? : string[];
+  creatorName?: string;
+  creatorAvatar? :string;
 }
 
 export interface Comment {

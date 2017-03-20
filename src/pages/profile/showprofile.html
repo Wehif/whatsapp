@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar color="whatsapp">
+    <ion-title>Profile</ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="profile-page-content">
+  <div class="profile-picture">
+    <img *ngIf="picture" [src]="picture">
+  </div>
+
+  <ion-item class="profile-name">
+    <ion-label stacked>{{profile.name}}</ion-label>
+  </ion-item>
+  <ion-item class="profile-description">
+    <ion-label stacked>{{profile.description}}</ion-label>
+  </ion-item>
+</ion-content>
