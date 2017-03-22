@@ -24663,11 +24663,17 @@ sub {
   width: 100%;
 }
 
-.my-events-page-content ion-icon {
-  float: right;
-  font-size: 30px;
+.my-events-page-content .event-attachments ion-icon {
+  float: left;
+  font-size: 20px;
   opacity: 0.5;
   border-left: black solid 1px;
+  padding-left: 5px;
+}
+
+.my-events-page-content .event-attachments p {
+  float: left;
+  font-size: 20px;
   padding-left: 5px;
 }
 

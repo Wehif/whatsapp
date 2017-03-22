@@ -19,7 +19,7 @@
         <p class="profile-description">{{profile.description}}</p>
       </ion-item>
 
-      <ion-item >
+      <ion-item *ngIf="!(key === senderId)">
         <button ion-button block (click)="sendMessage()" >Написать сообщение</button>
       </ion-item>
 

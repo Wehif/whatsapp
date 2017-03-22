@@ -6,6 +6,7 @@ import { MeteorObservable } from 'meteor-rxjs';
 import { EventPage } from './event';
 import { Observable } from 'rxjs';
 import { NewEventComponent } from './new-event';
+import { _ } from 'meteor/underscore';
 
 @Component({
   templateUrl: 'myevents.html'
@@ -46,13 +47,25 @@ export class MyEventsPage implements OnInit {
   findMyEvents(): Observable<Event[]> {
     // Find events and transform them
     let todayDate = new Date().toISOString();
-    return Events.find({ dateEnd: { $gte: todayDate}, subscribers: this.userId}, {sort: { dateStart: 1}});
+    return Events.find({ dateEnd: { $gte: todayDate}, subscribers: this.userId}, {sort: { dateStart: 1}}).map(events => { events.forEach(event => {
+       event.countSubscribers = _.size(event.subscribers);
+       event.countOfComments = 0;
+     });
+
+     return events;
+   });
   }
 
   findMyEventsPrev(): Observable<Event[]> {
     // Find events and transform them
     let todayDate = new Date().toISOString();
-    return Events.find({ dateEnd: { $lt: todayDate}, subscribers: this.userId}, {sort: { dateStart: -1}});
+    return Events.find({ dateEnd: { $lt: todayDate}, subscribers: this.userId}, {sort: { dateStart: -1}}).map(events => { events.forEach(event => {
+       event.countSubscribers = _.size(event.subscribers);
+       event.countOfComments = 0;
+     });
+
+     return events;
+   });
   }
 
   showEvent(id : string): void {
