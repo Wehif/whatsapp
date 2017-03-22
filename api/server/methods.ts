@@ -168,6 +168,26 @@ Meteor.methods({
     
     check(eventId, nonEmptyString);
     
-    Events.collection.update({_id: eventId}, { $pull: { subscribers: this.userId } });
+    Events.collection.update({_id: eventId}, { $pull: { subscribers: this.userId, iGoSubscribers: this.userId } });
+  },
+  iGoSubscribeEvent(eventId: string): void {
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized',
+        'User must be logged-in to subscribe');
+    }
+    
+    check(eventId, nonEmptyString);
+    
+    Events.collection.update({_id: eventId}, { $push: { iGoSubscribers: this.userId } });
+  },
+  iGoUnsubscribeEvent(eventId: string): void {
+    if (!this.userId) {
+      throw new Meteor.Error('unauthorized',
+        'User must be logged-in to subscribe');
+    }
+    
+    check(eventId, nonEmptyString);
+    
+    Events.collection.update({_id: eventId}, { $pull: { iGoSubscribers: this.userId } });
   }
 });

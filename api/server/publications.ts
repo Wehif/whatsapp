@@ -120,6 +120,14 @@ Meteor.publish('myEventsPrev', function() {
       return Events.collection.find({ dateEnd: { $lt: todayDate}, subscribers: this.userId});
 });
 
+Meteor.publish('countEventComments', function(eventId:string) {
+  if (!this.userId) {
+    return;
+  }
+  return Comments.collection.find({ docId: eventId });
+});
+
+
 Meteor.publishComposite('eventComments', function(eventId:string): PublishCompositeConfig<Comment> {
   if (!this.userId) {
     return;

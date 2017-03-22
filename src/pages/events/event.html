@@ -42,10 +42,24 @@
                 </span>
               </ion-col>
             </ion-row>
+            <ion-row>
+              <ion-col>
+                <p>Подписчики: {{event.countSubscribers}}</p>
+              </ion-col>
+              <ion-col>
+                <p>"Я пойду" : {{event.countIGoSubscribers}}</p>
+              </ion-col>
+            </ion-row>
           </div>
+
       <ion-item *ngIf="profileId !== event.creatorId">
        <button ion-button block *ngIf="!subscribed" (click)="subscribeUser()" >Подписаться</button>
-       <button ion-button block clear *ngIf="subscribed" (click)="unsubscribeUser()" >Отписаться</button>
+       <button ion-button block outline *ngIf="subscribed" (click)="unsubscribeUser()" >Отписаться</button>
+    </ion-item>
+
+    <ion-item *ngIf="profileId !== event.creatorId">
+       <button ion-button block color="secondary" *ngIf="!iGoSubscribed && subscribed" (click)="iGo()" >Я пойду!</button>
+       <button ion-button block outline color="secondary" *ngIf="iGoSubscribed && subscribed" (click)="iDontGo()" >Я не уверен, что приду</button>
     </ion-item>
       </ion-card-content>
     </ion-card>

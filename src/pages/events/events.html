@@ -36,6 +36,20 @@
                <p>Время окончания: </p> <ion-item class="item-date-end"><ion-datetime disabled="true" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="event.dateEnd" ></ion-datetime></ion-item>
             </span>
           </div>
+          <ion-row class="event-attachments">
+            <ion-col>
+              <span>
+                <ion-icon name="contacts"></ion-icon>
+                <p>{{event.countSubscribers}}</p>
+              </span>
+            </ion-col>
+            <!--<ion-col>
+              <span>
+                <ion-icon name="chatboxes"></ion-icon>
+                <p>{{event.countOfComments}}</p>
+              </span>
+            </ion-col>-->
+          </ion-row>
         </ion-card-content>
       </button>
     </ion-card>

@@ -22,7 +22,8 @@ export class ProfilePage implements OnInit {
 
   ngOnInit(): void {
     this.profile = Meteor.user().profile || {
-      name: ''
+      name: '',
+      description: ''
     };
 
     MeteorObservable.subscribe('user').subscribe(() => {

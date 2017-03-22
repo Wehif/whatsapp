@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Events } from 'api/collections';
+import { Events, Comments } from 'api/collections';
 import { Event } from 'api/models';
 import { NavController, PopoverController, ModalController, AlertController } from 'ionic-angular';
 import { MeteorObservable } from 'meteor-rxjs';
 import { EventPage } from './event';
 import { Observable } from 'rxjs';
 import { NewEventComponent } from './new-event';
+import { _ } from 'meteor/underscore';
 
 @Component({
   templateUrl: 'events.html'
@@ -38,7 +39,19 @@ export class EventsPage implements OnInit {
   findEvents(): Observable<Event[]> {
     // Find events and transform them
     let todayDate = new Date().toISOString();
-    return Events.find({ dateEnd: { $gte: todayDate}}, {sort: { dateStart: 1}});
+    return Events.find({ dateEnd: { $gte: todayDate}}, {sort: { dateStart: 1}}).map(events => { events.forEach(event => {
+       event.countSubscribers = _.size(event.subscribers);
+       event.countOfComments = 0;
+       //MeteorObservable.subscribe('countEventComments').subscribe(() => {
+       //  MeteorObservable.autorun().subscribe(() => {
+       //    let sad = Comments.find({docId: event._id}).count();
+       //    console.log(sad);
+       //  });
+       //});
+     });
+
+     return events;
+   });
   }
 
   showEvent(id : string): void {

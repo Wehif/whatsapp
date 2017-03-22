@@ -69,6 +69,10 @@ export interface Event {
   pictureId?: string;
   location?: string;
   subscribers? : string[];
+  iGoSubscribers? : string[];
+  countSubscribers: number;
+  countIGoSubscribers: number;
+  countOfComments: number;
   creatorName?: string;
   creatorAvatar? :string;
 }

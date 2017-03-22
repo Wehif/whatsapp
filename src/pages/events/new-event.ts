@@ -29,7 +29,11 @@ export class NewEventComponent implements OnInit {
       name: '',
       description: '',
       picture:'',
-      subscribers: []
+      subscribers: [],
+      iGoSubscribers: [],
+      countSubscribers: 1,
+      countIGoSubscribers: 1,
+      countOfComments: 0
     }
    
    this.event.dateStart = new Date(Date.now()).toISOString();
@@ -63,7 +67,8 @@ export class NewEventComponent implements OnInit {
     this.event.dateEnd = event.dateEnd;
     if (this.event.dateStart && this.event.dateEnd) {
       if (this.event.dateEnd > this.event.dateStart) {
-        this.event.subscribers.push(Meteor.userId());
+        this.event.subscribers.push(this.event.creatorId);
+        this.event.iGoSubscribers.push(this.event.creatorId);
         MeteorObservable.call('addEvent', this.event).subscribe({
           next: () => {
             this.viewCtrl.dismiss();

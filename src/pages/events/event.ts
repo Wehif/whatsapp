@@ -25,6 +25,7 @@ export class EventPage implements OnInit {
   newCommentText: string;
   newComment: Comment;
   subscribed: boolean;
+  iGoSubscribed: boolean;
 
   constructor(
     private alertCtrl: AlertController,
@@ -48,18 +49,12 @@ export class EventPage implements OnInit {
       docId: ''
     }
     this.event='';
-    
 
     MeteorObservable.subscribe('event', this.key).subscribe(() => {
       MeteorObservable.autorun().subscribe(() => {
         this.event = this.findEvent();
       });
     });
-    
-    //MeteorObservable.subscribe('event', this.key).subscribe(() => { 
-    //  this.event = Events.findOne({_id: this.key});
-    //});
-
 
     MeteorObservable.subscribe('eventComments', this.key).subscribe(() => {
       MeteorObservable.autorun().subscribe(() => {
@@ -68,30 +63,10 @@ export class EventPage implements OnInit {
     });
   }
 
-  //findEvent(): Event {
-  // Find event and transform them
-  //  let currEvent = Events.find({_id: this.key}).map(events => {
-  //    events.forEach(event => {
-  //      event.creatorName = '';
-  //      event.creatorAvatar = '';
-
-  //      const creator = Users.findOne(event.creatorId);
-
-  //      if (creator) {
-  //        event.creatorName = creator.profile.name;
-  //        event.creatorAvatar = Pictures.getPictureUrl(creator.profile.pictureId);
-  //      }
-  //    });
-  //    return events;
-  //  });
-  //  console.log("лахей, сюда смотри!");
-  //  console.log(currEvent);
-  //  return currEvent[1];
-  //}
 
   findEvent(): Event {
   // Find event and transform them
-    let currEvent = Events.findOne({_id: this.key})
+    let currEvent = Events.findOne({_id: this.key});
         currEvent.creatorName = '';
         currEvent.creatorAvatar = '';
 
@@ -103,6 +78,9 @@ export class EventPage implements OnInit {
         }
       
     this.subscribed = _.include(currEvent.subscribers, this.profileId);
+    this.iGoSubscribed = _.include(currEvent.iGoSubscribers, this.profileId);
+    currEvent.countSubscribers = _.size(currEvent.subscribers) || 1;
+    currEvent.countIGoSubscribers = _.size(currEvent.iGoSubscribers) || 1;
     return currEvent;
   }
 
@@ -180,19 +158,30 @@ export class EventPage implements OnInit {
   
   subscribeUser(): void {
      MeteorObservable.call('subscribeEvent', this.event._id).subscribe();
+
      this.subscribed = true;
   }
 
   unsubscribeUser(): void {
      MeteorObservable.call('unsubscribeEvent', this.event._id).subscribe();
+
      this.subscribed = false;
+     this.iGoSubscribed = false;
   }
 
- ifSubcribe(): void {
-   this.subscribed = _.include(this.event.subscribers, this.profileId);
- }
+  iGo(): void {
+     MeteorObservable.call('iGoSubscribeEvent', this.event._id).subscribe();
 
- showCreatorProfile(): void {
+     this.iGoSubscribed = true;
+  }
+
+  iDontGo(): void {
+     MeteorObservable.call('iGoUnsubscribeEvent', this.event._id).subscribe();
+
+     this.iGoSubscribed = false;
+  }
+
+  showCreatorProfile(): void {
     this.navCtrl.push(ShowProfilePage, { profileKey : this.event.creatorId});
- }
+  }
 }
